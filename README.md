@@ -20,9 +20,9 @@ Windows (RepoCleaner.ps1).
 
 ## Usage
 
-> **Note**: This program is designed to wipe sensitive information from **past commits**.
-> Make sure the repository is currently free of sensitive data before running the
-> script.
+> **Note**: This program is designed to wipe sensitive information from **past
+> commits**. Make sure the repository is currently free of sensitive data before
+> running the script.
 
 ### Linux/Unix
 
@@ -38,10 +38,17 @@ Windows (RepoCleaner.ps1).
    ./RepoCleaner.sh -u <GitHub_User> -r <Repo_Name>
    ```
 
+   Or:
+
+   ```bash
+   ./RepoCleaner.sh -l https://github.com/<GitHub_User>/<Repo_Name>.git
+   ```
+
 #### Flags
 
 - `-u`: GitHub username
 - `-r`: GitHub repository name
+- `-l`: GitHub repository URL
 - `-h`: Display help menu
 
 ### Windows
@@ -54,10 +61,17 @@ Windows (RepoCleaner.ps1).
    .\RepoCleaner.ps1 -GitHubUser <GitHub_User> -Repo <Repo_Name>
    ```
 
+   Or:
+
+   ```powershell
+   .\RepoCleaner.ps1 -Url https://github.com/<GitHub_User>/<Repo_Name>.git
+   ```
+
 #### Flags
 
 - `-GitHubUser`: GitHub username
 - `-Repo`: GitHub repository name
+- `-Url`: GitHub repository URL
 - `-Help`: Display help menu
 
 ## passwords.txt

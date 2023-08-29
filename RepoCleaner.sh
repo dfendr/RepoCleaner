@@ -3,8 +3,9 @@
 # Initialize variables
 GITHUB_USER=""
 REPO=""
+URL=""
 
-display_help() {
+show_help() {
 	echo "Usage: $0 [options]"
 	echo
 	echo "This script clones a GitHub repository, wipes sensitive info from commits,"
@@ -13,26 +14,45 @@ display_help() {
 	echo "Options:"
 	echo "  -u <user>    GitHub username"
 	echo "  -r <repo>    GitHub repository name"
+	echo "  -l <url>     GitHub repository URL"
 	echo "  -h           Display this help menu"
+	echo
+	echo "Example URL: https://github.com/user/repo.git"
 	echo
 }
 
 parse_options() {
-	while getopts "u:r:h" opt; do
+	while getopts "u:r:l:h:-:" opt; do
 		case $opt in
 		u) GITHUB_USER="$OPTARG" ;;
 		r) REPO="$OPTARG" ;;
+		l) URL="$OPTARG" ;;
 		h)
-			display_help
+			show_help
 			exit 0
+			;;
+		-)
+			if [ "$OPTARG" == "help" ]; then
+				show_help
+			else
+				echo "Invalid option: --$OPTATRG" >&2
+				exit 1
+			fi
 			;;
 		*)
 			echo "Invalid option: -$OPTARG" >&2
-			display_help
+			show_help
 			exit 1
 			;;
 		esac
 	done
+
+	# Append .git to URL if not present and extract GitHub user and repo
+	if [[ -n "$URL" ]]; then
+		[[ "$URL" =~ \.git$ ]] || URL="$URL.git"
+		GITHUB_USER=$(echo "$URL" | awk -F'/' '{print $4}')
+		REPO=$(echo "$URL" | awk -F'/' '{print $5}' | sed 's/\.git$//')
+	fi
 }
 
 delete_old_repo() {
