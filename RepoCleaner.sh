@@ -47,7 +47,6 @@ parse_options() {
 		esac
 	done
 
-	# Append .git to URL if not present and extract GitHub user and repo
 	if [[ -n "$URL" ]]; then
 		[[ "$URL" =~ \.git$ ]] || URL="$URL.git"
 		GITHUB_USER=$(echo "$URL" | awk -F'/' '{print $4}')
@@ -75,11 +74,19 @@ clone_repo() {
 }
 
 wipe_info() {
-	java -jar bfg-1.14.0.jar --replace-text passwords.txt "$REPO" ||
-		{
-			echo "Failed to wipe info"
+	java -jar bfg-1.14.0.jar --replace-text passwords.txt "$REPO" || {
+		echo "Failed to wipe info"
+		exit 1
+	}
+
+	# Delete files listed in files.txt
+	while read -r line; do
+		java -jar bfg-1.14.0.jar --delete-files "$line" "$REPO" || {
+			echo "Failed to delete $line"
 			exit 1
 		}
+	done <files.txt
+
 	cd "$REPO.git" || {
 		echo "Failed to change directory"
 		exit 1

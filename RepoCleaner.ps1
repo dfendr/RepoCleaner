@@ -41,6 +41,15 @@ function Wipe-Info
 {
     java -jar .\bfg-1.14.0.jar --replace-text .\passwords.txt $Repo -ErrorAction Stop
     Set-Location -Path "$Repo.git" -ErrorAction Stop
+
+    # Additional logic to delete files listed in files.txt
+    $files = Get-Content .\files.txt
+    foreach ($file in $files)
+    {
+        # Assuming that files.txt contains one file name per line
+        java -jar .\bfg-1.14.0.jar --delete-files $file $Repo -ErrorAction Stop
+    }
+
     git reflog expire --expire=now --all -ErrorAction Stop
     git gc --prune=now --aggressive -ErrorAction Stop
 }
