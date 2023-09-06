@@ -79,6 +79,25 @@ Windows (RepoCleaner.ps1).
 Add any sensitive information that you want to wipe from the repository to this
 file. Each piece of information should be on a new line.
 
+
+
+### files.txt
+
+Add the filenames that you want to delete from the repository's history to this
+file. Each filename should be on a new line. If the file is located in a
+subdirectory, include the relative path from the repository root.
+
+Example:
+```
+passwords_old.txt
+config/secret_config.yaml
+scripts/unused_script.sh
+```
+
+
+>Note: Ensure you have backed up any files you intend to remove from history,
+as this operation is irreversible.
+
 ## Contributing
 
 Feel free to open issues or submit pull requests. Your contributions are welcome!
