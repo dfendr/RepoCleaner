@@ -1,8 +1,7 @@
 # RepoCleaner
 
-RepoCleaner is a utility script for cloning a GitHub repository, wiping sensitive
-information from its commit history, and then pushing the changes back to the
-repository. This tool is available for both Linux/Unix (RepoCleaner.sh) and
+RepoCleaner is a utility script for wiping sensitive data from your git repositories. 
+This tool is available for both Linux/Unix (RepoCleaner.sh) and
 Windows (RepoCleaner.ps1).
 
 ## Prerequisites
